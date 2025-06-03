@@ -61,11 +61,8 @@ public class MainFrame extends JFrame {
 
         JMenuItem viewAllItem = new JMenuItem("View All Receipts");
         viewAllItem.addActionListener(e -> {
-            // Open receipt list dialog
-            JOptionPane.showMessageDialog(this,
-                    "Receipt list functionality will be implemented here",
-                    "View Receipts",
-                    JOptionPane.INFORMATION_MESSAGE);
+            ReceiptListDialog dialog = new ReceiptListDialog(this);
+            dialog.setVisible(true);
         });
 
         receiptMenu.add(viewAllItem);
