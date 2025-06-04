@@ -13,6 +13,8 @@ public class MainFrame extends JFrame {
         setSize(1000, 700);
         setLocationRelativeTo(null);
 
+        receiptPreviewPanel = new ReceiptPreviewPanel();
+
         initComponents();
         layoutComponents();
         setupMenu();
