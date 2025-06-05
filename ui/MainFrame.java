@@ -63,8 +63,11 @@ public class MainFrame extends JFrame {
 
         JMenuItem viewAllItem = new JMenuItem("View All Receipts");
         viewAllItem.addActionListener(e -> {
-            ReceiptListDialog dialog = new ReceiptListDialog(this);
-            dialog.setVisible(true);
+            // Open receipt list dialog
+            JOptionPane.showMessageDialog(this,
+                    "Bentar Belum Dibikinin!",
+                    "View Receipts",
+                    JOptionPane.INFORMATION_MESSAGE);
         });
 
         receiptMenu.add(viewAllItem);
@@ -92,10 +95,10 @@ public class MainFrame extends JFrame {
     }
 
     public void updatePreview(String receiptContent) {
-        if (receiptPreviewPanel != null) {
-            receiptPreviewPanel.updatePreview(receiptContent);
-        } else {
+        if (receiptPreviewPanel == null) {
             System.err.println("Error: receiptPreviewPanel is not initialized!");
+            return;
         }
+        receiptPreviewPanel.updatePreview(receiptContent);
     }
 }
