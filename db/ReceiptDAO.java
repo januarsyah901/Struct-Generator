@@ -160,31 +160,31 @@ public class ReceiptDAO {
     // Get items for a receipt
     public List<ReceiptItem> getReceiptItems(int receiptId) {
         List<ReceiptItem> items = new ArrayList<>();
-        String sql = "SELECT * FROM receipt_items WHERE receipt_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "SELECT * FROM receipt_items WHERE receipt_id = ?")) {
 
             pstmt.setInt(1, receiptId);
-            ResultSet rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                ReceiptItem item = new ReceiptItem();
-                item.setId(rs.getInt("id"));
-                item.setReceiptId(rs.getInt("receipt_id"));
-                item.setItemName(rs.getString("item_name"));
-                item.setQuantity(rs.getInt("quantity"));
-                item.setUnitPrice(rs.getBigDecimal("unit_price"));
-                item.setTotalPrice(rs.getBigDecimal("total_price"));
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    ReceiptItem item = new ReceiptItem();
+                    item.setId(rs.getInt("id"));
+                    item.setReceiptId(rs.getInt("receipt_id"));
+                    item.setItemName(rs.getString("item_name"));
+                    item.setQuantity(rs.getInt("quantity"));
+                    item.setUnitPrice(rs.getBigDecimal("unit_price"));
+                    item.setTotalPrice(rs.getBigDecimal("total_price"));
 
-                items.add(item);
-            }
-
+                    items.add(item); // Store data in the list
+                }
+            } // ResultSet is closed here
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return items;
+        return items; // Return the list after ResultSet is closed
     }
 
     // Get a single receipt by ID

@@ -13,8 +13,6 @@ public class MainFrame extends JFrame {
         setSize(1000, 700);
         setLocationRelativeTo(null);
 
-        receiptPreviewPanel = new ReceiptPreviewPanel();
-
         initComponents();
         layoutComponents();
         setupMenu();
@@ -63,8 +61,11 @@ public class MainFrame extends JFrame {
 
         JMenuItem viewAllItem = new JMenuItem("View All Receipts");
         viewAllItem.addActionListener(e -> {
-            ReceiptListDialog dialog = new ReceiptListDialog(this);
-            dialog.setVisible(true);
+            // Open receipt list dialog
+            JOptionPane.showMessageDialog(this,
+                    "Receipt list functionality will be implemented here",
+                    "View Receipts",
+                    JOptionPane.INFORMATION_MESSAGE);
         });
 
         receiptMenu.add(viewAllItem);
@@ -92,10 +93,6 @@ public class MainFrame extends JFrame {
     }
 
     public void updatePreview(String receiptContent) {
-        if (receiptPreviewPanel != null) {
-            receiptPreviewPanel.updatePreview(receiptContent);
-        } else {
-            System.err.println("Error: receiptPreviewPanel is not initialized!");
-        }
+        receiptPreviewPanel.updatePreview(receiptContent);
     }
 }
